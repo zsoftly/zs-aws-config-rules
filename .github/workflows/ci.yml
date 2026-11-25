@@ -36,13 +36,6 @@ jobs:
           bandit -r cw-lg-retention-monitor/src/ -f json -o bandit-report.json || true
           bandit -r cw-lg-retention-monitor/src/ --exit-zero
           
-      - name: Upload Bandit report
-        uses: actions/upload-artifact@v4
-        with:
-          name: bandit-report
-          path: bandit-report.json
-        if: always()
-
   sam-validation:
     name: SAM Template Validation
     runs-on: ubuntu-latest
@@ -87,9 +80,3 @@ jobs:
           cd cw-lg-retention-monitor
           pytest tests/ -v --cov=src --cov-report=term-missing --cov-report=xml --tb=short
           
-      - name: Upload coverage reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: cw-lg-retention-monitor/coverage.xml
-        if: always()
